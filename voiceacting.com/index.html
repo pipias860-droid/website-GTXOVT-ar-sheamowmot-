@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yleoba gaxmovaneba.com | ფილმები და სერიალები</title>
+
+    <!-- ========================================== -->
+    <!--            INTERNAL CSS RULES              -->
+    <!-- ========================================== -->
+    <style>
+        /* 1. Global Setup & Body Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #1a1d24; /* Core Adjaranet dark gray background */
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 2. Top Navigation Bar */
+        .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+            padding: 15px 40px;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo img {
+            height: 48px; /* Perfectly scales your transparent brand logo */
+            object-fit: contain;
+            margin-right: 40px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-item {
+            color: #b3b3b3;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-item:hover {
+            color: #ffffff;
+        }
+
+        /* 3. Hero / Main Content Banner Area */
+        .hero-banner {
+            position: relative;
+            height: 520px;
+            background-image: url('Gemini_Generated_Image_5psce65psce65psc-remove-bg-io'); /* Swap with your featured movie backdrop */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 50px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, #1a1d24 8%, rgba(26, 29, 36, 0.3) 50%, rgba(0, 0, 0, 0.75) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #e5e7eb;
+            margin-bottom: 18px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 4. Glassmorphic Search Bar */
+        .search-box {
+            display: flex;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.22);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-box input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 14px 20px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-box input::placeholder {
+            color: #dddddd;
+        }
+
+        .search-btn {
+            background: transparent;
+            border: none;
+            padding: 0 22px;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .search-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* 5. Row Headers & Categories Container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px 60px 20px;
+        }
+
+        .movie-row {
+            margin-bottom: 45px;
+        }
+
+        .row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .row-header h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #f3f4f6;
+            letter-spacing: 0.5px;
+        }
+
+        .row-arrows {
+            color: #8892b0;
+            cursor: pointer;
+            font-size: 18px;
+            user-select: none;
+        }
+        
+        .row-arrows span {
+            margin-left: 12px;
+            transition: color 0.2s;
+        }
+
+        .row-arrows span:hover {
+            color: #ffffff;
+        }
+
+        /* 6. Movie & Series Video Poster Grids */
+        .movie-grid {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            scrollbar-width: none; /* For Firefox */
+        }
+
+        .movie-grid::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+
+        .movie-card {
+            min-width: calc(14.28% - 12px); /* Computes layout for 7 cards across */
+            aspect-ratio: 2 / 3;
+            background-color: #262a36;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. NAVIGATION BAR -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <!-- Uses your freshly generated transparent site logo -->
+                <img src="Gemini_Generated_Image_5psce65psce65psc-remove-bg-io.png" alt="yleoba gaxmovaneba logo">
+            </div>
+            <nav class="nav-menu">
+                <!-- <a href="#" class="nav-item">ფილმები</a>
+                <a href="#" class="nav-item">სერიალები</a>
+                <a href="#" class="nav-item">ანიმაცია</a>
+                <a href="#" class="nav-item">კოლექციები</a> -->
+            </nav>
+        </div>
+    </header>
+
+    
+    <section class="hero-banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2 class="hero-title">მოძებნე რავი მე</h2>
+            
+            <!-- 3. SEARCH BAR ELEMENT -->
+            <div class="search-box">
+                <input type="text" placeholder="ძებნა...">
+                <button class="search-btn">🔍</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SHELVES / SLIDER GRIDS -->
+    <main class="content-container">
+        
+        <!-- Category Row 1: Movies -->
+        <section class="movie-row">
+            <div class="row-header">
+                <h3>ფილმები ქართულად</h3>
+                <div class="row-arrows"><span>&lt;</span> <span>&gt;</span></div>
+            </div>
+            <div class="movie-grid">
+                <!-- Swap source strings below with your local cover file paths -->
+                <a href="mclovin.html"><div class="movie-card"><img src="Screenshot 2026-07-05 222845.png" alt="Emergency Declaration"></div></a>
+                <a href="zellig.html"><div class="movie-card"><img src="daylezelig.png" alt="Your Heart Will Be Broken"></div>
+                <a href="dexter.html"><div class="movie-card"><img src="posterdexter.png" alt="The Empty Man"></div></a>
+                <div class="movie-card"><img src="male.png" alt=""></div>
+                <div class="movie-card"><img src="male.png" alt=""></div>
+                <div class="movie-card"><img src="male.png" alt=""></div>
+                <div class="movie-card"><img src="male.png" alt=""></div>
+            </div>
+        </section>
+
+        <!-- Category Row 2: Series
+        <section class="movie-row">
+            <div class="row-header">
+                <h3>სერიალები ქართულად</h3>
+                <div class="row-arrows"><span>&lt;</span> <span>&gt;</span></div>
+            </div>
+            <div class="movie-grid">
+                <div class="movie-card"><img src="series1.jpg" alt="1899"></div>
+                <div class="movie-card"><img src="series2.jpg" alt="Sandik Kokusu"></div>
+                <div class="movie-card"><img src="series3.jpg" alt="Hijack"></div>
+                <div class="movie-card"><img src="series4.jpg" alt="Adim Farah"></div>
+                <div class="movie-card"><img src="series5.jpg" alt="Fallout"></div>
+                <div class="movie-card"><img src="series6.jpg" alt="Kizilcik Serbeti"></div>
+                <div class="movie-card"><img src="series7.jpg" alt="House of the Dragon"></div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html> -->
